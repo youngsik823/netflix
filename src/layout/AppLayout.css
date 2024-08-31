@@ -1,0 +1,28 @@
+.logo {
+    width: 150px;
+}
+.nav {
+    color: white;
+}
+.nav.active {
+    color: red !important;
+}
+.navbar {
+    background-color: black !important;
+}
+.search-button {
+    background-color: red;
+}
+.search-button:hover {
+    background-color: yellow;
+    color: black;
+}
+.nav-logo {
+    cursor: pointer;
+}
+.d-flex > input {
+    background-color: lightgray;
+}
+.d-flex > input::placeholder {
+    color: lightslategrey;
+}
