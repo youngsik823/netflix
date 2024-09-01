@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -9,8 +9,23 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import "../layout/AppLayout.css";
 
 const AppLayout = () => {
+    const [scrolled, setScrolled] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 75) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     const homepageClick = () => {
         navigate('/');
@@ -22,7 +37,7 @@ const AppLayout = () => {
 
     return (
         <div>
-            <Navbar expand="lg" className="navbar">
+            <Navbar expand="lg" className={`navbar ${scrolled ? 'scrolled' : ''}`}>
                 <Container fluid>
                     <Navbar.Brand className="nav-logo">
                         <img className="logo" src="/logo.png" alt="Logo" onClick={homepageClick}/>
@@ -38,13 +53,13 @@ const AppLayout = () => {
                                 className={`nav ${location.pathname === '/' ? 'active' : ''}`}
                                 onClick={homepageClick}
                             >
-                                Home
+                                홈
                             </Nav.Link>
                             <Nav.Link
                                 className={`nav ${location.pathname.startsWith('/movies') ? 'active' : ''}`}
                                 onClick={moviesClick}
                             >
-                                Movies
+                                시리즈
                             </Nav.Link>
                         </Nav>
                         <Form className="d-flex">

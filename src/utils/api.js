@@ -3,7 +3,7 @@ import axios from "axios";
 const API_KEY = process.env.REACT_APP_API_KEY;
 
 const api = axios.create({
-    baseURL: "https://api.themoviedb.org/3",
+    baseURL: "https://api.themoviedb.org/3/keyword/261681-south-korea/movies?include_adult=true&language=ko&page=1",
     headers: {
         Accept: "application/json",
         Authorization: `Bearer ${API_KEY}`,

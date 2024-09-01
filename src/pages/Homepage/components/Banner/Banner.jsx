@@ -1,31 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
 import Alert from "react-bootstrap/Alert";
 import "./Banner.style.css";
 
 const Banner = () => {
+    const [randomNumber, setRandomNumber] = useState(null);
     const { data, isLoading, isError, error } = usePopularMoviesQuery();
-    console.log(data);
+
+    useEffect(() => {
+        if (data && data.results && data.results.length > 0) {
+            const randomNum = Math.floor(Math.random() * data.results.length);
+            setRandomNumber(randomNum);
+        }
+    }, [data]);
+
     if (isLoading) {
-        <h1>Loading....</h1>;
+        return <h1>Loading</h1>;
     }
+
     if (isError) {
-        <Alert variant="danger">{error.message}</Alert>;
+        return <Alert variant="danger">{error.message}</Alert>;
     }
+
+    if (!data || randomNumber === null || !data.results[randomNumber]) {
+        return null;
+    }
+
+    const selectedMovie = data.results[randomNumber];
 
     return (
         <div
             style={{
-                backgroundImage:
-                    "url(" +
-                    `https://media.themoviedb.org/t/p/w533_and_h300_bestv2${data?.results[0].poster_path}` +
-                    ")",
+                backgroundImage: `url(https://media.themoviedb.org/t/p/original${selectedMovie.backdrop_path})`,
             }}
             className="banner"
         >
             <div className="text-white banner-text-area">
-                <h1>{data?.results[0].title}</h1>
-                <p>{data?.results[0].overview}</p>
+                <h1>{selectedMovie.title}</h1>
+                <p>{selectedMovie.overview}</p>
             </div>
         </div>
     );
