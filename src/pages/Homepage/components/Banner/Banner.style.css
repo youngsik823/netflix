@@ -1,6 +1,6 @@
 .banner {
     height: 56vh;
-    background-position: left;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -19,7 +19,6 @@
     justify-content: center;
     height: 100%;
     padding: 2rem;
-    
 }
 .banner-text-area > * {
     z-index: 2;
