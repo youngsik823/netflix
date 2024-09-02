@@ -3,8 +3,6 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    
-    
 }
 .banner::before {
     content: "";
@@ -16,7 +14,7 @@
     width: 100%;
 }
 .banner-text-area {
-    width: 36%; 
+    width: 36%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,4 +23,39 @@
 }
 .banner-text-area > * {
     z-index: 2;
+}
+
+@media (max-width: 700px) and (max-height: 700px) {
+    .banner-text-area {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        padding: 2rem;
+        font-size: 10px;
+    }
+}
+@media (max-width: 700px)and (min-height: 701px) and (max-height: 1020px) {
+    .banner-text-area {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        padding: 2rem;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 1030px) and (min-width: 701px) {
+    .banner-text-area {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+        padding: 2rem;
+        font-size: 15px;
+    }
 }

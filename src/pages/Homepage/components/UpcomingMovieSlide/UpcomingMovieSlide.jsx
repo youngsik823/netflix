@@ -1,12 +1,12 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
+import { useUpcomingMoviesQuery } from "../../../../hooks/usePopularMovies";
 import { Alert } from "bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "../PopularMovieSlide/PopularMovieSlide.style.css";
-import PopularMovieCard from "../../MovieCard/PopularMovieCard";
+import UpcomingMovieCard from "../../MovieCard/UpcomingMovieCard";
 
-const PopularMovieSlide = () => {
+const UpcomingMovieSlide = () => {
     const responsive = {
         superLargeDesktop: {
             breakpoint: { max: 4000, min: 3000 },
@@ -25,18 +25,17 @@ const PopularMovieSlide = () => {
             items: 1,
         },
     };
-    const { data, isLoading, isError, error } = usePopularMoviesQuery();
+    const { data, isLoading, isError, error } = useUpcomingMoviesQuery();
+
     if (isLoading) {
         return <h1>Loading...</h1>;
     }
     if (isError) {
         return <Alert varient="danger">{error.message}</Alert>;
     }
-    
-
     return (
         <div>
-            <h3>인기있는 영화</h3>
+            <h3>곧 다가오는 영화</h3>
             <Carousel
                 infinite={true}
                 centerMode={true}
@@ -44,12 +43,13 @@ const PopularMovieSlide = () => {
                 containerClass="carousel-container"
                 responsive={responsive}
             >
-                {data?.results.map((movie, index) => (
-                    <PopularMovieCard movie={movie} key={index} />
-                ))}
+                {data &&
+                    data?.results.map((movie, index) => (
+                        <UpcomingMovieCard movie={movie} key={index} />
+                    ))}
             </Carousel>
         </div>
     );
 };
 
-export default PopularMovieSlide;
+export default UpcomingMovieSlide;

@@ -2,13 +2,13 @@
     height: 75px;
     position: fixed;
     width: 100%;
-    transition: background-color 0.3s ease; 
-    background-color: transparent; 
+    transition: background-color 0.3s ease;
+    background-color: transparent;
     z-index: 10;
     font-weight: 700;
 }
 .navbar.scrolled {
-    background-color: black; 
+    background-color: black;
 }
 .logo {
     width: 100px;
@@ -19,40 +19,12 @@
     font-size: 14px;
 }
 .nav:hover {
-    color: rgba(229, 229, 229, 0.7) !important;
+    color: rgba(229, 229, 229, 0.7);
 }
 .nav.active {
     color: #fff !important;
 }
 
-.search-button {
-    background-color: red;
-}
-.search-button:hover {
-    background-color: yellow;
-    color: black;
-}
-.nav-logo {
-    cursor: pointer;.navbar {
-    height: 75px;
-}
-.logo {
-    width: 100px;
-    margin-left: 45px;
-}
-.nav {
-    color: #e5e5e5;
-    font-size: 14px;
-}
-.nav:hover {
-    color: rgba(229, 229, 229, 0.7) !important;
-}
-.nav.active {
-    color: #fff !important;
-}
-.navbar {
-    background-color: black !important;
-}
 .search-button {
     background-color: red;
 }
@@ -62,6 +34,46 @@
 }
 .nav-logo {
     cursor: pointer;
+    .navbar {
+        height: 75px;
+    }
+    .logo {
+        width: 100px;
+        margin-left: 45px;
+    }
+    .nav {
+        color: #e5e5e5;
+        font-size: 14px;
+    }
+    .nav:hover {
+        color: rgba(229, 229, 229, 0.7) !important;
+    }
+    .nav.active {
+        color: #fff !important;
+    }
+    .navbar {
+        background-color: black !important;
+    }
+    .search-button {
+        background-color: red;
+    }
+    .search-button:hover {
+        background-color: yellow;
+        color: black;
+    }
+    .nav-logo {
+        cursor: pointer;
+    }
+    .d-flex > input {
+        background-color: lightgray;
+    }
+    .d-flex > input::placeholder {
+        color: lightslategrey;
+    }
+    .me-auto {
+        gap: 2px;
+        margin-left: 12px;
+    }
 }
 .d-flex > input {
     background-color: lightgray;
@@ -74,14 +86,14 @@
     margin-left: 12px;
 }
 
-}
-.d-flex > input {
-    background-color: lightgray;
-}
-.d-flex > input::placeholder {
-    color: lightslategrey;
-}
-.me-auto {
-    gap: 2px;
-    margin-left: 12px;
+@media (max-width: 991px) {
+    .show {
+        background: black;
+        opacity: 0.8;
+    }
+    .nav:hover {
+        display: block;
+        opacity: 0.6;
+        color: white !important;
+    }
 }

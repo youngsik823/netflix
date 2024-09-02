@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
+import { useKoreaMoviesQuery } from "../../../../hooks/usePopularMovies";
 import Alert from "react-bootstrap/Alert";
 import "./Banner.style.css";
 
 const Banner = () => {
     const [randomNumber, setRandomNumber] = useState(null);
-    const { data, isLoading, isError, error } = usePopularMoviesQuery();
+    const { data, isLoading, isError, error } = useKoreaMoviesQuery();
 
     useEffect(() => {
         if (data && data.results && data.results.length > 0) {
