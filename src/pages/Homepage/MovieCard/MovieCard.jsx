@@ -7,7 +7,6 @@ import { useKoeraMovieGenreQuery, useMovieGenreQuery } from "../../../hooks/useM
 
 const MovieCard = ({ movie }) => {
     const { data: genreData } = useMovieGenreQuery();
-    console.log(genreData);
     
     const showGener = (genreIdList) => {
         if (!genreData) return [];
