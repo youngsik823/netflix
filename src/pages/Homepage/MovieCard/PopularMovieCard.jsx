@@ -2,9 +2,24 @@ import React from "react";
 import "./PopularMovieCard.style.css";
 import { Badge } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faUser, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import {
+    faStar,
+    faUser,
+    faTriangleExclamation,
+} from "@fortawesome/free-solid-svg-icons";
+import { useMovieGenreQuery } from "../../../hooks/useMovieGenreQuery";
 
 const PopularMovieCard = ({ movie }) => {
+    const { data: genreData } = useMovieGenreQuery();
+    
+    const showGener = (genreIdList) => {
+        if (!genreData) return [];
+        const genreNameList = genreIdList.map((id) => {
+            const genreObj = genreData.find((genre) => genre.id === id);
+            return genreObj.name;
+        });
+        return genreNameList;
+    };
     return (
         <div
             style={{
@@ -18,8 +33,10 @@ const PopularMovieCard = ({ movie }) => {
             <div className="overlay">
                 <h1 className="card-title">{movie.title}</h1>
                 <div className="card-genre-box">
-                    {movie.genre_ids.map((id) => (
-                        <Badge className="card-genre">{id}</Badge>
+                    {showGener(movie.genre_ids).map((genre, index) => (
+                        <Badge className="card-genre" key={index}>
+                            {genre}
+                        </Badge>
                     ))}
                 </div>
                 <div className="card-box-container">
