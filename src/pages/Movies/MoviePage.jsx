@@ -12,23 +12,42 @@ const MoviePage = () => {
     const [query, setQuery] = useSearchParams();
     const keyword = query.get("q");
     const [page, setPage] = useState(1);
+    const [selectedGenre, setSelectedGenre] = useState(null);
+    const [filteredMovies, setFilteredMovies] = useState([]);
+
     const { data, isLoading, isError, error } = useSearchMovieQuery({
         keyword,
         page,
     });
+
     const { data: genreData } = useMovieGenreQuery();
-
-
+    
+    
     useEffect(() => {
         setPage(1);
+        setSelectedGenre(null);
     }, [keyword]);
+
+    useEffect(() => {
+        if (data) {
+            if (selectedGenre) {
+                const filtered = data.results.filter((movie) =>
+                    movie.genre_ids.includes(selectedGenre)
+                );
+                setFilteredMovies(filtered);
+            } else {
+                setFilteredMovies(data.results);
+            }
+        }
+    }, [data, selectedGenre]);
 
     const handlePageClick = ({ selected }) => {
         setPage(selected + 1);
     };
-    const genreClick = () => {
-        
-    }
+
+    const genreClick = (genreId) => {
+        setSelectedGenre(genreId);
+    };
 
     if (isLoading) {
         return (
@@ -52,19 +71,33 @@ const MoviePage = () => {
                 <Col lg={4} xs={12} className="filter-col">
                     <Row className="movie-page-genre-row">
                         {genreData?.map((genre) => (
-                            <Col className="movie-page-genre" key={genre.id} onClick={() => genreClick(genre.id)}>{genre.name}</Col>
+                            <Col
+                                className={`movie-page-genre ${
+                                    genre.id === selectedGenre ? "selected" : ""
+                                }`}
+                                key={genre.id}
+                                onClick={() => genreClick(genre.id)}
+                            >
+                                {genre.name}
+                            </Col>
                         ))}
                     </Row>
                 </Col>
                 <Col lg={8} xs={12} className="content-data">
                     <Row className="movie-page-box">
-                        {data?.results.map((movie, index) => (
-                            <Col key={index} className="movie-page-card">
-                                <MovieCard movie={movie} />
-                            </Col>
-                        ))}
+                        {data && filteredMovies.length > 0 ? (
+                            filteredMovies.map((movie, index) => (
+                                <Col key={index} className="movie-page-card">
+                                    <MovieCard movie={movie} />
+                                </Col>
+                            ))
+                        ) : (
+                            <p className="movie-page-no-search">
+                                검색 결과가 없습니다.
+                            </p>
+                        )}
                     </Row>
-                    <div movie-pagenation>
+                    <div className="movie-pagination">
                         <ReactPaginate
                             nextLabel=">"
                             onPageChange={handlePageClick}

@@ -59,9 +59,22 @@
     cursor: pointer;
 }
 
+.movie-page-genre:hover {
+    background: yellow;
+    color: black;
+}
+.movie-page-genre.selected {
+    background: yellow;
+    color: black;
+}
 .movie-page-genre-row {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
+}
+
+.movie-page-no-search {
+    font-size: 20px;
+    color: red;
 }
