@@ -6,6 +6,7 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Homepage from "./pages/Homepage/Homepage";
 import MoviePage from "./pages/Movies/MoviePage";
 import MovieDetailPage from "./pages/MovieDetail/MovieDetailPage";
+import { useState } from "react";
 
 function App() {
     return (

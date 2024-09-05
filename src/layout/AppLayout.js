@@ -9,10 +9,15 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import "../layout/AppLayout.css";
 
 const AppLayout = () => {
+    const [keyword, setKeyword] = useState("");
     const [scrolled, setScrolled] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
-
+    const searchByKeyword = (e) => {
+        e.preventDefault();
+        navigate(`/movies?q=${keyword}`);
+        setKeyword("");
+    };
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 75) {
@@ -22,25 +27,33 @@ const AppLayout = () => {
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener("scroll", handleScroll);
 
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     const homepageClick = () => {
-        navigate('/');
-    }
+        navigate("/");
+    };
 
     const moviesClick = () => {
-        navigate('/movies');
-    }
+        navigate("/movies");
+    };
 
     return (
         <div>
-            <Navbar expand="lg" className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+            <Navbar
+                expand="lg"
+                className={`navbar ${scrolled ? "scrolled" : ""}`}
+            >
                 <Container fluid>
                     <Navbar.Brand className="nav-logo">
-                        <img className="logo" src="/logo.png" alt="Logo" onClick={homepageClick}/>
+                        <img
+                            className="logo"
+                            src="/logo.png"
+                            alt="Logo"
+                            onClick={homepageClick}
+                        />
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
@@ -50,33 +63,42 @@ const AppLayout = () => {
                             navbarScroll
                         >
                             <Nav.Link
-                                className={`nav ${location.pathname === '/' ? 'active' : ''}`}
+                                className={`nav ${
+                                    location.pathname === "/" ? "active" : ""
+                                }`}
                                 onClick={homepageClick}
                             >
                                 홈
                             </Nav.Link>
                             <Nav.Link
-                                className={`nav ${location.pathname.startsWith('/movies') ? 'active' : ''}`}
+                                className={`nav ${
+                                    location.pathname.startsWith("/movies")
+                                        ? "active"
+                                        : ""
+                                }`}
                                 onClick={moviesClick}
                             >
                                 시리즈
                             </Nav.Link>
                         </Nav>
-                        <Form className="d-flex">
+                        <Form className="d-flex" onSubmit={searchByKeyword}>
                             <Form.Control
                                 type="search"
                                 placeholder="Search"
                                 className="me-2"
                                 aria-label="Search"
+                                value={keyword}
+                                onChange={(e) => setKeyword(e.target.value)}
                             />
-                            <Button className="search-button">Search</Button>
+                            <Button className="search-button" type="submit">
+                                Search
+                            </Button>
                         </Form>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
             <Outlet />
         </div>
-        
     );
 };
 
