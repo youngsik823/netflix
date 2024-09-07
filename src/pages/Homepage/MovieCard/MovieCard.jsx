@@ -50,7 +50,7 @@ const MovieCard = ({ movie }) => {
                                 className="star-icon"
                             />
                             <div className="card-vote-c">
-                                {movie.vote_average}
+                                {movie.vote_average.toFixed(1)}
                             </div>
                         </div>
                         <div className="cart-text">

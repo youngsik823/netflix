@@ -135,7 +135,7 @@ const MovieDetailPage = () => {
                                     className="star-icon"
                                 />
                                 <div className="card-vote-c">
-                                    {data.vote_average}
+                                    {data.vote_average.toFixed(1)}
                                 </div>
                             </div>
                             <div className="cart-text">
