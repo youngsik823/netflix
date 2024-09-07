@@ -51,3 +51,48 @@
 .recommended-movie {
     margin-top: 20px;
 }
+.movie-reviews {
+    margin-top: 2rem;
+}
+
+.review {
+    border: 3px solid red;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.review h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+.movie-reviews {
+    color: white;
+}
+.review-content {
+    font-size: 1rem;
+    line-height: 1.5;
+    max-height: 4.5rem; /* Adjust this value to control the number of visible lines */
+    overflow: hidden;
+    position: relative;
+}
+
+.review-content.expanded {
+    max-height: none;
+}
+
+.review-toggle-btn {
+    background: none;
+    border: none;
+    background: red;
+    padding: 10px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+.review-toggle-btn:focus {
+    outline: none;
+}

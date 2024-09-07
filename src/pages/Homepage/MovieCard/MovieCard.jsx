@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const MovieCard = ({ movie }) => {
     const { data: genreData } = useMovieGenreQuery();
     const navigate = useNavigate();
-    console.log(movie);
     
     const handleClick = () => {
         navigate(`/movies/${movie.id}`);
