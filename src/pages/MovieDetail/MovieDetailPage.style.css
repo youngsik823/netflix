@@ -1,0 +1,53 @@
+.movie-detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.movie-detail-wrap {
+    width: 1300px;
+    height: 100vh;
+
+    margin-top: 75px;
+}
+.movie-detail-context {
+    display: flex;
+}
+
+.movie-detail-img {
+    width: 2000px;
+    height: 700px;
+    background-size: cover;
+    cursor: pointer;
+    transition: 0.5s;
+    background-position: center;
+    border-radius: 20px;
+}
+.movie-detail-description {
+
+    margin-left: 50px;
+    margin-top: 50px;
+}
+.movie-detail-description > h1 {
+    color: white;
+}
+.movie-detail-genre {
+    display: inline-block;
+    background-color: red;
+    margin-left: 10px;
+    padding: 1px;
+    border-radius: 10px;
+}
+.d-d {
+    font-size: 20px;
+    color: white;
+}
+.movie-detail-description > .cart-text {
+    font-size: 20px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.recommended-movie {
+    margin-top: 20px;
+}

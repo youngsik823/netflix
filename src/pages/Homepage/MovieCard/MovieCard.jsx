@@ -4,10 +4,17 @@ import { Badge } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faUser, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { useKoeraMovieGenreQuery, useMovieGenreQuery } from "../../../hooks/useMovieGenreQuery";
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
     const { data: genreData } = useMovieGenreQuery();
+    const navigate = useNavigate();
+    console.log(movie);
     
+    const handleClick = () => {
+        navigate(`/movies/${movie.id}`);
+      };
+
     const showGener = (genreIdList) => {
         if (!genreData) return [];
         const genreNameList = genreIdList.map((id) => {
@@ -25,6 +32,7 @@ const MovieCard = ({ movie }) => {
                     ")",
             }}
             className="movie-card"
+            onClick={handleClick}
         >
             <div className="overlay">
                 <h1 className="card-title">{movie.title}</h1>

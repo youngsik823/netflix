@@ -8,10 +8,14 @@ import {
     faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 import { useMovieGenreQuery } from "../../../hooks/useMovieGenreQuery";
+import { useNavigate } from "react-router-dom";
 
 const UpcomingMovieCard = ({ movie }) => {
     const { data: genreData } = useMovieGenreQuery();
-
+    const navigate = useNavigate();
+    const handleClick = () => {
+        navigate(`/movies/${movie.id}`);
+      };
     const showGener = (genreIdList) => {
         if (!genreData) return [];
         const genreNameList = genreIdList.map((id) => {
@@ -29,6 +33,7 @@ const UpcomingMovieCard = ({ movie }) => {
                     ")",
             }}
             className="movie-card"
+            onClick={handleClick}
         >
             <div className="overlay">
                 <h1 className="card-title">{movie.title}</h1>

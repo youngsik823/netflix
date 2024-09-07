@@ -11,6 +11,10 @@ const fetchUpcomingMovies = () => {
     return fApi.get("/movie/upcoming");
 };
 
+const fetchMovieDetail = (id) => {
+    return fApi.get(`/movie/${id}`);
+};
+
 export const useKoreaMoviesQuery = () => {
     return useQuery({
         queryKey: ["movie-korea"],
@@ -30,6 +34,14 @@ export const useUpcomingMoviesQuery = () => {
     return useQuery({
         queryKey: ["movie-upcoming"],
         queryFn: fetchUpcomingMovies,
+        select: (result) => result.data,
+    });
+};
+
+export const useMovieDetailQuery = ({ id }) => {
+    return useQuery({
+        queryKey: ["movie-korea-detail", {id}],
+        queryFn: () => fetchMovieDetail(id),
         select: (result) => result.data,
     });
 };
