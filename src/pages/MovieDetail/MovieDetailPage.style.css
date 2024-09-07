@@ -6,7 +6,6 @@
 .movie-detail-wrap {
     width: 1300px;
     height: 100vh;
-
     margin-top: 75px;
 }
 .movie-detail-context {
@@ -106,4 +105,66 @@
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 500px) {
+    .movie-detail-wrap {
+        width: 340px;
+        height: 100vh;
+        margin-top: 75px;
+    }
+    
+    .movie-detail-img {
+        width: 1500px;
+        height: 500px;
+    }
+    .movie-detail-description {
+        margin-top: 25px;
+        margin-left: 25px;
+    }
+    .movie-detail-description > h1 {
+        font-size: 17px;
+        font-weight: 800;
+    }
+    .d-d {
+        font-size: 13px;
+    }
+    .movie-detail-description > .cart-text {
+        font-size: 13px;
+    }
+    .review-content {
+        font-size: 13px;
+    }
+      
+}
+@media (max-width: 800px) and (min-width: 501px) {
+    .movie-detail-wrap {
+        width: 300px;
+        height: 100vh;
+        margin-top: 75px;
+    }
+    .movie-detail-img {
+        width: 1500px;
+        height: 500px;
+    }
+}
+@media (max-width: 1000px) and (min-width: 801px) {
+    .movie-detail-wrap {
+        width: 700px;
+        height: 100vh;
+        margin-top: 75px;
+    }
+    
+  
+      
+}
+@media (max-width: 1400px) and (min-width: 1001px) {
+    .movie-detail-wrap {
+        width: 900px;
+        height: 100vh;
+        margin-top: 75px;
+    }
+    
+  
+      
 }
