@@ -2,7 +2,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import MovieCard from "../../MovieCard/MovieCard";
-import "../PopularMovieSlide/PopularMovieSlide.style.css";
+import "./RecommendedMovieSlide.css";
 
 const RecommendedMovieSlide = ({ movies }) => {
     const responsive = {
@@ -26,7 +26,7 @@ const RecommendedMovieSlide = ({ movies }) => {
 
     return (
         <div>
-            <h3>추천 영화</h3>
+            <h3 className="recommend-movie">추천 영화</h3>
             <Carousel
                 infinite={true}
                 centerMode={true}

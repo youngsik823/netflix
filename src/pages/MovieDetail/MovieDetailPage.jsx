@@ -5,9 +5,10 @@ import { useMovieDetailQuery } from "../../hooks/usePopularMovies";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenreQuery";
 import { useMovieRecommendationQuery } from "../../hooks/useMovieRecommendationQuery";
 import { useMovieReviewQuery } from "../../hooks/useReview.js";
-import RecommendedMovieSlide from "../Homepage/components/RecommendedMovieSlide/RecommendedMovieSlide.jsx"; 
+import RecommendedMovieSlide from "../Homepage/components/RecommendedMovieSlide/RecommendedMovieSlide.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faUser, faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { Button, Modal } from "react-bootstrap";
 
 const MovieDetailPage = () => {
     const { id } = useParams();
@@ -18,6 +19,7 @@ const MovieDetailPage = () => {
     const { data: reviews, isLoading: isLoadingReviews, isError: isErrorReviews } = useMovieReviewQuery(id);
 
     const [expandedReviewId, setExpandedReviewId] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     const showGener = (genreIdList) => {
         if (!genreData) return [];
@@ -31,6 +33,14 @@ const MovieDetailPage = () => {
         setExpandedReviewId(prevId => prevId === reviewId ? null : reviewId);
     };
 
+    const handleImageClick = () => {
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
     if (isLoading || isLoadingRecommendations || isLoadingReviews) {
         return <h1>Loading...</h1>;
     }
@@ -40,74 +50,100 @@ const MovieDetailPage = () => {
     }
 
     return (
-        <div className="movie-detail-container">
-            <div className="movie-detail-wrap">
-                <div className="movie-detail-context">
-                    <div
-                        className="movie-detail-img"
-                        style={{
-                            backgroundImage:
-                                `url(https://media.themoviedb.org/t/p/original${data.backdrop_path})`,
-                        }}
-                    ></div>
-                    <div className="movie-detail-description">
-                        <h1>{data.original_title}</h1>
-                        <p className="d-d">{data.release_date}</p>
-                        <p className="d-d">
-                            <b>Overview:</b> {data.overview}
-                        </p>
-                        <p className="d-d">
-                            <b>Genre:</b>
-                            {showGener(data.genres.map((genre) => genre.id)).map((genre, index) => (
-                                <div className="movie-detail-genre" key={index}>
-                                    {genre}
+        <>
+            <div className="movie-detail-container">
+                <div className="movie-detail-wrap">
+                    <div className="movie-detail-context">
+                        <div
+                            className="movie-detail-img"
+                            style={{
+                                backgroundImage:
+                                    `url(https://media.themoviedb.org/t/p/original${data.backdrop_path})`,
+                            }}
+                            onClick={handleImageClick} // Handle image click to open modal
+                        ></div>
+                        <div className="movie-detail-description">
+                            <h1>{data.original_title}</h1>
+                            <p className="d-d">{data.release_date}</p>
+                            <p className="d-d">
+                                <b>Overview:</b> {data.overview}
+                            </p>
+                            <p className="d-d">
+                                <b>Genre:</b>
+                                {showGener(data.genres.map((genre) => genre.id)).map((genre, index) => (
+                                    <div className="movie-detail-genre" key={index}>
+                                        {genre}
+                                    </div>
+                                ))}
+                            </p>
+                            <p className="d-d"><b>runtime: </b>{data.runtime}</p>
+                            <div className="cart-text">
+                                <FontAwesomeIcon icon={faStar} className="star-icon" />
+                                <div className="card-vote-c">
+                                    {data.vote_average}
                                 </div>
-                            ))}
-                        </p>
-                        <p className="d-d"><b>runtime: </b>{data.runtime}</p>
-                        <div className="cart-text">
-                            <FontAwesomeIcon icon={faStar} className="star-icon" />
-                            <div className="card-vote-c">
-                                {data.vote_average}
                             </div>
-                        </div>
-                        <div className="cart-text">
-                            <FontAwesomeIcon icon={faUser} />
-                            <div className="card-popularity">
-                                {data.popularity}
+                            <div className="cart-text">
+                                <FontAwesomeIcon icon={faUser} />
+                                <div className="card-popularity">
+                                    {data.popularity}
+                                </div>
                             </div>
-                        </div>
-                        <div className="cart-text">
-                            <FontAwesomeIcon icon={faTriangleExclamation} />
-                            <div className="card-adult">
-                                {data.adult ? "over18" : "under18"}
+                            <div className="cart-text">
+                                <FontAwesomeIcon icon={faTriangleExclamation} />
+                                <div className="card-adult">
+                                    {data.adult ? "over18" : "under18"}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <RecommendedMovieSlide movies={recommendations} />
-                <div className="movie-reviews">
-                    <h2>Reviews</h2>
-                    {reviews.length ? (
-                        reviews.map((review) => (
-                            <div key={review.id} className="review">
-                                <h3>{review.author}</h3>
-                                <p className={`review-content ${expandedReviewId === review.id ? 'expanded' : 'collapsed'}`}>
-                                    {review.content}
-                                </p>
-                                {review.content.length > 300 && (
-                                    <button onClick={() => toggleReview(review.id)} className="review-toggle-btn">
-                                        {expandedReviewId === review.id ? "줄이기" : "더보기"}
-                                    </button>
-                                )}
-                            </div>
-                        ))
-                    ) : (
-                        <p>No reviews available</p>
-                    )}
+                    <RecommendedMovieSlide movies={recommendations} />
+                    <div className="movie-reviews">
+                        <h2>Reviews</h2>
+                        {reviews.length ? (
+                            reviews.map((review) => (
+                                <div key={review.id} className="review">
+                                    <h3>{review.author}</h3>
+                                    <p className={`review-content ${expandedReviewId === review.id ? 'expanded' : 'collapsed'}`}>
+                                        {review.content}
+                                    </p>
+                                    {review.content.length > 300 && (
+                                        <button onClick={() => toggleReview(review.id)} className="review-toggle-btn">
+                                            {expandedReviewId === review.id ? "줄이기" : "더보기"}
+                                        </button>
+                                    )}
+                                </div>
+                            ))
+                        ) : (
+                            <p>No reviews available</p>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+
+            {/* YouTube Modal */}
+            <Modal show={showModal} onHide={handleCloseModal} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>{data.original_title}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <iframe
+                        width="100%"
+                        height="315"
+                        src={`https://www.youtube.com/embed/${data.youtube_video_key}`} // Ensure `youtube_video_key` is available in movie data
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
     );
 };
 
