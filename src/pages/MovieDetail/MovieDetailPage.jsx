@@ -104,7 +104,7 @@ const MovieDetailPage = () => {
                             style={{
                                 backgroundImage: `url(https://media.themoviedb.org/t/p/original${data.backdrop_path})`,
                             }}
-                            onClick={handleImageClick} // Handle image click to open modal
+                            onClick={handleImageClick}
                         ></div>
                         <div className="movie-detail-description">
                             <h1>{data.original_title}</h1>
@@ -189,17 +189,20 @@ const MovieDetailPage = () => {
                 </div>
             </div>
 
-            {/* YouTube Modal */}
-            <Modal show={showModal} onHide={handleCloseModal} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>{data.original_title}</Modal.Title>
-                </Modal.Header>
+            <Modal
+                className="youtube-container"
+                show={showModal}
+                onHide={handleCloseModal}
+                centered
+                size="lg"
+            >
                 <Modal.Body>
                     {youtubeVideoKey ? (
                         <iframe
-                            width="100%"
-                            height="315"
-                            src={`https://www.youtube.com/embed/${youtubeVideoKey}`}
+                            className="yt"
+                            width="80%"
+                            height="800"
+                            src={`https://www.youtube.com/embed/${youtubeVideoKey}?autoplay=1`}
                             title="YouTube video player"
                             frameBorder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -209,11 +212,6 @@ const MovieDetailPage = () => {
                         <p>No video available</p>
                     )}
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseModal}>
-                        Close
-                    </Button>
-                </Modal.Footer>
             </Modal>
         </>
     );
